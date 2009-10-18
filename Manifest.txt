@@ -1,0 +1,16 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/ministat
+lib/ministat.rb
+package/History.txt
+package/Manifest.txt
+package/README.txt
+package/Rakefile
+package/bin/package
+package/lib/package.rb
+package/test/test_package.rb
+test/data/1.dat
+test/data/2.dat
+test/test_ministat.rb
