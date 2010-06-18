@@ -1,18 +1,15 @@
-# -*- ruby -*-
-
-require 'rubygems'
-require 'hoe'
+require 'rake/gempackagetask'
 require './lib/ministat.rb'
 
-Hoe.new('ministat', MiniStat::VERSION) do |p|
-  p.rubyforge_name = 'ministat'
+spec = Gem::Specification.new do |p|
+  p.version = MiniStat::VERSION
+  p.name = 'ministat'
   p.author = 'Dean Hudson'
   p.email = 'dean@ero.com'
   p.summary = 'A small and simple library to generate statistical info on single-variable datasets.'
-  p.description = p.paragraphs_of('README.txt', 2..5).join("\n\n")
-  p.url = p.paragraphs_of('README.txt', 0).first.split(/\n/)[1..-1]
-  p.changes = p.paragraphs_of('History.txt', 0..1).join("\n\n") 
-  p.remote_rdoc_dir = ''
+  p.description = File.read(File.join(File.dirname(__FILE__), 'README'))
+  p.requirements = ['An eye for data and a strong will to live']
+  p.has_rdoc = true
+  p.files = Dir['**/**']
 end
-
-# vim: syntax=Ruby
+Rake::GemPackageTask.new(spec).define
