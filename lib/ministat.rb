@@ -1,4 +1,6 @@
 require 'mathn'
+require 'rubygems'
+require 'ruby-debug'
 
 module MiniStat
   VERSION = '1.1.0'   
@@ -26,10 +28,12 @@ module MiniStat
         @sort = true
       end
       if data.size % 2 == 0
-        return (data[data.size / 2 - 1] + data[(data.size / 2)]) / 2
+        return (data[data.size / 2.0 - 1] + data[(data.size / 2.0)]) / 2
       else 
-        split = (data.size + 1) / 2
-        return (data[split - 1.5] + data[split - 0.5]) / 2
+        # split = (data.size - 1) / 2
+        # this was just weird. i need to look this up
+        # return (data[split - 1.5] + data[split - 0.5]) / 2
+        return data[(data.size - 1)/2]
       end
     end
 
@@ -81,7 +85,7 @@ module MiniStat
           @hist[val] ||= 0
           @hist[val] += 1
           @max_freq, @mode = @hist[val], val if @hist[val] > @max_freq
-         end
+        end
       end
       @mode
     end
