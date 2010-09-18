@@ -59,7 +59,7 @@ class TestMiniStat < Test::Unit::TestCase
   def test_q1
     assert(@ms1.q1 - 17 < @error)   
     assert(@ms3.q1 - 1.05 < @error)
-    assert(@ms4.q1 - -2.6 < @error)
+    assert(@ms4.q1 - -2.4 < @error)
   end
 
   def test_q3
