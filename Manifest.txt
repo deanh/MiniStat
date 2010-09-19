@@ -1,0 +1,10 @@
+History.rdoc
+Manifest.txt
+README.rdoc
+Rakefile
+bin/ministat.rb
+lib/ministat.rb
+patch
+test/data/1.dat
+test/data/2.dat
+test/test_ministat.rb

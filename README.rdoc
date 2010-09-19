@@ -1,5 +1,6 @@
-ministat
-    Author: H. Dean Hudson <dean@ero.com>
+= ministat
+
+* http://github.com/deanh/MiniStat
 
 == DESCRIPTION:
   
