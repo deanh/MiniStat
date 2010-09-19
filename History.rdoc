@@ -1,9 +1,21 @@
-== 1.2.2 / 2009-11-11
+== 1.2.4 / 2010-09-18
 
-* 1 major enhancement
-  * Birthday!    
+* Version bump for packaging
+
+== 1.2.2 / 2010-09-18
+
+* Returned to Hoe's sweet embrace
+* Minor median bug fix
+* Cleaned up packaging stuff
+* Added a little to the Synopsis
+
+== 1.1.*
+
+* Moved most everything into MiniStat::Data
+* Added geometric and harmonic means
+* Briefly left Hoe's sweet embrace while the author suffered confusion regarding rubygems.org
+
 == 1.0.0 / 2007-11-11
 
-* 1 major enhancement
-  * Birthday!
+* Birthday!
 

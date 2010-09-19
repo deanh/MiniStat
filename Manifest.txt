@@ -2,7 +2,7 @@ History.rdoc
 Manifest.txt
 README.rdoc
 Rakefile
-bin/ministat.rb
+bin/ministat
 lib/ministat.rb
 patch
 test/data/1.dat

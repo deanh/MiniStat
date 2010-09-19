@@ -23,11 +23,22 @@ at least to get you thinking about what it may take to do so.
   require 'ministat'
  
   data = [1,2,3,4,5,6,7,7,6,5,4,4]
+  d = MiniStat::Data.new(data) 
+
+  d.median             # => 4.5
+  d.mean               # => 4.5
+  d.mode               # => 4.0
+  d.q1                 # => 3.5
+  d.outliers           # => []
+  d.std_dev            # => 1.80277563773199
+  # and so on...
+
   puts MiniStat::Data.new(data).to_s
+  # this outputs most everything
 
 == REQUIREMENTS:
 
-  None
+  Hoe is your friend.
 
 == INSTALL:
 

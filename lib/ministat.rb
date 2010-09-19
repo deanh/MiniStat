@@ -3,7 +3,7 @@ require 'rubygems'
 require 'ruby-debug'
 
 module MiniStat
-  VERSION = '1.2.2'   
+  VERSION = '1.2.4'   
   class Data
     attr_reader :data
 
