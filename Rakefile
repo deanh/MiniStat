@@ -1,14 +1,12 @@
 require 'rubygems'
 require 'hoe'
 
-Hoe.plugins.delete :rubyforge
-Hoe.plugin :doofus, :git
-
-Hoe.spec "ministat" do
-  developer "H. Dean Hudson", "dean@ero.com"
-
-  self.extra_rdoc_files = Dir["*.rdoc"]
-  self.history_file     = "History.rdoc"
-  self.readme_file      = "README.rdoc"
+Hoe.spec 'ministat' do
+  developer('Dean Hudson', 'dean@ero.com')
+  
+  self.readme_file      = 'README.rdoc'
+  self.history_file     = 'History.rdoc'
+  self.extra_dev_deps << ['minitest', '~> 2.0']
 end
+
 
