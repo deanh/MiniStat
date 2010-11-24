@@ -1,19 +1,22 @@
 require 'rubygems'
-require 'minitest/unit'
+require 'test/unit'
 require 'ministat' 
 
-class TestMiniStat < MiniTest::Unit::TestCase
+class TestMiniStat < Test::Unit::TestCase
   def setup
     @data1 = [34, 47, 1, 15, 57, 24, 20, 11, 19, 50, 28, 37]
     @data2 = [60, 56, 61, 68, 51, 53, 69, 54]                  
     @data3 = File.open('test/data/1.dat').map {|l| l.chomp}
     @data4 = File.open('test/data/2.dat').map {|l| l.chomp}
+    @data5 = File.open('test/data/3.dat').map {|l| l.chomp}
     @ms1   = MiniStat::Data.new(@data1)
     @ms2   = MiniStat::Data.new(@data2)
     @ms3   = MiniStat::Data.new(@data3)
     @ms4   = MiniStat::Data.new(@data4)
+    @ms5   = MiniStat::Data.new(@data5)
     # we test to within a tolerance to schluff off
     # possible floating point and rounding errors
+    # TODO: rewrite with assert_delta
     @error = 0.001 
   end
 
@@ -70,11 +73,17 @@ class TestMiniStat < MiniTest::Unit::TestCase
   end
 
   def test_geo_mean
-    # debugger
+    assert(@ms2.geometric_mean - 58.66896 < @error)
+    assert(@ms3.geometric_mean - 1.695651 < @error) 
+    assert(@ms4.geometric_mean - 3463.229 < @error)
   end
 
   def test_harm_mean
-    # debugger
+    assert(@ms1.harmonic_mean - 8.259642 < @error)
+    assert(@ms2.harmonic_mean - 58.34724 < @error)
+    assert(@ms3.harmonic_mean - 1.218216 < @error)   
+    assert(@ms4.harmonic_mean - 5.921447 < @error)
+    assert(@ms5.harmonic_mean - 976.2331 < @error)
   end
 end
 
