@@ -6,4 +6,5 @@ bin/ministat
 lib/ministat.rb
 test/data/1.dat
 test/data/2.dat
+test/data/3.dat
 test/test_ministat.rb
