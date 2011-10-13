@@ -105,7 +105,7 @@ module MiniStat
     # Geometric mean. Only applies to non-negative numbers, and
     # relates to log-normal distribution.
     def geometric_mean
-      @geoeteric_mean ||= 
+      @geometric_mean ||= 
         (@data.inject(1) {|i,j| i *= j})**(1.0/@data.size)
     end
 
