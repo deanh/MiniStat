@@ -1,23 +1,19 @@
 require 'rubygems'
-require 'test/unit'
-require 'ministat' 
+require 'minitest/autorun'
+require 'ministat'
 
 class TestMiniStat < Test::Unit::TestCase
   def setup
     @data1 = [34, 47, 1, 15, 57, 24, 20, 11, 19, 50, 28, 37]
     @data2 = [60, 56, 61, 68, 51, 53, 69, 54]                  
-    @data3 = File.open('test/data/1.dat').map {|l| l.chomp}
-    @data4 = File.open('test/data/2.dat').map {|l| l.chomp}
-    @data5 = File.open('test/data/3.dat').map {|l| l.chomp}
+    @data3 = File.open('test/data/1.dat').map { |l| l.chomp }
+    @data4 = File.open('test/data/2.dat').map { |l| l.chomp }
+    @data5 = File.open('test/data/3.dat').map { |l| l.chomp }
     @ms1   = MiniStat::Data.new(@data1)
     @ms2   = MiniStat::Data.new(@data2)
     @ms3   = MiniStat::Data.new(@data3)
     @ms4   = MiniStat::Data.new(@data4)
     @ms5   = MiniStat::Data.new(@data5)
-    # we test to within a tolerance to schluff off
-    # possible floating point and rounding errors
-    # TODO: rewrite with assert_delta
-    @error = 0.001 
   end
 
   def test_enum
@@ -28,19 +24,27 @@ class TestMiniStat < Test::Unit::TestCase
   end
 
   def test_iqr
-    assert(@ms1.iqr - 25 < @error)
+    assert_in_delta 25, @ms1.iqr
+    assert_in_delta 11, @ms2.iqr
+    assert_in_delta 1.94, @ms3.iqr
+    assert_in_delta 9.15, @ms4.iqr
+    assert_in_delta 4677, @ms5.iqr
   end                                                   
 
   def test_mean
-    assert(@ms2.mean - 59 < @error)
-    assert(@ms3.mean - 2.179 < @error)
-    assert(@ms4.mean - 1.878 < @error)
+    assert_in_delta 28.583, @ms1.mean
+    assert_in_delta 59, @ms2.mean
+    assert_in_delta 2.179, @ms3.mean
+    assert_in_delta 1.878, @ms4.mean
+    assert_in_delta 4884.695, @ms5.mean
   end
 
   def test_median
-    assert(@ms1.median - 26 < @error)
-    assert(@ms3.median - 1.735 < @error)
-    assert(@ms3.median - 2.8 < @error)
+    assert_in_delta 26, @ms1.median
+    assert_in_delta 58, @ms2.median
+    assert_in_delta 1.735, @ms3.median
+    assert_in_delta 2.8, @ms4.median
+    assert_in_delta 5016, @ms5.median
   end
 
   def test_mode
@@ -51,40 +55,58 @@ class TestMiniStat < Test::Unit::TestCase
   end
 
   def test_outliers
-    assert_equal(@ms1.outliers, [])
+    assert_equal @ms1.outliers, []
+    assert_includes @ms3.outliers, 6.0
   end
 
   def test_q1
-    assert(@ms1.q1 - 17 < @error)   
-    assert(@ms3.q1 - 1.05 < @error)
-    assert(@ms4.q1 - -2.4 < @error)
+    assert_in_delta 17, @ms1.q1
+    assert_in_delta 53.5, @ms2.q1
+    assert_in_delta 1.05, @ms3.q1
+    assert_in_delta -2.4, @ms4.q1
+    assert_in_delta 2442, @ms5.q1
   end
 
   def test_q3
-    assert(@ms1.q3 - 42 < @error)
-    assert(@ms3.q3 - 2.99 < @error)
-    assert(@ms4.q3 - 6.75 < @error)
+    assert_in_delta 42, @ms1.q3
+    assert_in_delta 64.5, @ms2.q3
+    assert_in_delta 2.99, @ms3.q3
+    assert_in_delta 6.75, @ms4.q3
+    assert_in_delta 7119, @ms5.q3
+  end
+
+  def test_variance
+    assert_in_delta 286.0833, @ms1.variance
+    assert_in_delta 45.71429, @ms2.variance
+    assert_in_delta 2.297878, @ms3.variance
+    assert_in_delta 57.06196, @ms4.variance
+    assert_in_delta 8376067, @ms5.variance, 1
   end
 
   def test_std_dev
-   assert(@ms2.std_dev - 6.324 < @error)
-   assert(@ms3.std_dev - 1.515 < @error)
-   assert(@ms4.std_dev - 7.553 < @error)
+    assert_in_delta 16.914, @ms1.std_dev
+    assert_in_delta 6.761, @ms2.std_dev
+    assert_in_delta 1.515, @ms3.std_dev
+    assert_in_delta 7.553, @ms4.std_dev
+    assert_in_delta 2894.144, @ms5.std_dev
   end
 
   def test_geo_mean
-    assert(@ms2.geometric_mean - 58.66896 < @error)
-    assert(@ms3.geometric_mean - 1.695651 < @error) 
-    assert(@ms4.geometric_mean - 3463.229 < @error)
+    assert_in_delta 58.66896, @ms2.geometric_mean
+    assert_in_delta 1.695651, @ms3.geometric_mean
+    # @ms4 contains negative numbers
+    assert_raises RuntimeError do 
+      @ms4.geometric_mean
+    end
+    assert_in_delta 3463.229, @ms5.geometric_mean
   end
 
   def test_harm_mean
-    assert(@ms1.harmonic_mean - 8.259642 < @error)
-    assert(@ms2.harmonic_mean - 58.34724 < @error)
-    assert(@ms3.harmonic_mean - 1.218216 < @error)   
-    assert(@ms4.harmonic_mean - 5.921447 < @error)
-    assert(@ms5.harmonic_mean - 976.2331 < @error)
+    assert_in_delta 8.259642, @ms1.harmonic_mean
+    assert_in_delta 58.34724, @ms2.harmonic_mean
+    assert_in_delta 1.218216, @ms3.harmonic_mean
+    assert_in_delta 5.921447, @ms4.harmonic_mean
+    assert_in_delta 976.2331, @ms5.harmonic_mean
   end
-end
 
-# Number of errors detected: 11
+end
