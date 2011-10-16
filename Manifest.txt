@@ -4,6 +4,7 @@ README.rdoc
 Rakefile
 bin/ministat
 lib/ministat.rb
+lib/ministat/data.rb
 test/data/1.dat
 test/data/2.dat
 test/data/3.dat
